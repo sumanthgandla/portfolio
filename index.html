@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sumanth Gandla | Portfolio</title>
+  <meta name="description" content="Portfolio of Sumanth Gandla — Data Analytics, BI, SQL, Python, Tableau, Power BI." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Top progress bar (nice touch) -->
+  <div class="progress" id="progress"></div>
+
+  <!-- Header -->
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="#top" aria-label="Go to top">
+        <span class="brand__dot"></span>
+        <span class="brand__text">SG</span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <a href="#home" class="nav__link">Home</a>
+        <a href="#about" class="nav__link">About</a>
+        <a href="#experience" class="nav__link">Experience</a>
+        <a href="#projects" class="nav__link">Projects</a>
+        <a href="#certifications" class="nav__link">Certifications</a>
+        <a href="#contact" class="nav__link nav__link--cta">Contact</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span id="themeIcon">🌙</span>
+        </button>
+        <button class="icon-btn burger" id="burger" type="button" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO (matches your screenshot vibe) -->
+  <main id="home" class="hero">
+    <div class="container hero__grid">
+      <section class="hero__left reveal">
+        <p class="hero__kicker">I’m <strong>Sumanth Gandla</strong>, a Data & BI focused Information Systems graduate student.</p>
+        <h1 class="hero__title">I love to create <span class="gradient">data-driven</span> insights.</h1>
+        <p class="hero__subtitle">
+          I build dashboards, automate reporting, validate complex datasets, and translate business requirements into actionable analytics
+          using <strong>Power BI</strong>, <strong>Tableau</strong>, <strong>SQL</strong>, <strong>Python</strong>, and <strong>Excel</strong>.
+        </p>
+
+        <div class="hero__buttons">
+          <a class="btn btn--primary" href="#projects">View Projects</a>
+          <a class="btn btn--ghost" href="#contact">Contact Me</a>
+        </div>
+
+        <div class="hero__meta">
+          <div class="pill">📍 Mount Pleasant, MI</div>
+          <div class="pill">🎓 MS in Information Systems</div>
+          <div class="pill">📊 Analytics • BI • Automation</div>
+        </div>
+
+        <div class="social">
+          <a class="social__link" href="mailto:sumanthgandla@gmail.com" aria-label="Email">Email</a>
+          <a class="social__link" href="https://www.linkedin.com/in/sumanth-gandla" target="_blank" rel="noopener">LinkedIn</a>
+          <!-- Add GitHub if you have it -->
+          <!-- <a class="social__link" href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a> -->
+        </div>
+      </section>
+
+      <aside class="hero__right reveal" aria-label="Profile">
+        <div class="profile-card">
+          <div class="profile-card__glow"></div>
+          <img class="profile-card__img" src="assests\sumanth.png" alt="Sumanth profile photo" />
+          <div class="profile-card__badge">Available for Internships / Analyst Roles</div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section__head reveal">
+        <h2 class="section__title">About</h2>
+        <p class="section__subtitle">
+          Early-career Information Systems graduate student focused on analytics enablement, consulting, and process transformation.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="card reveal">
+          <h3>Summary</h3>
+          <p>
+            Experienced in stakeholder collaboration, extracting/cleaning/validating datasets, and delivering interactive dashboards for
+            performance monitoring and executive reporting.
+          </p>
+          <div class="chips">
+            <span class="chip">Power BI</span>
+            <span class="chip">Tableau</span>
+            <span class="chip">SQL</span>
+            <span class="chip">Python</span>
+            <span class="chip">Excel</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <h3>Education</h3>
+          <ul class="list">
+            <li>
+              <strong>Central Michigan University</strong> — MS in Information Systems
+              <span class="muted"> (Aug 2024 – May 2026)</span>
+            </li>
+            <li>
+              <strong>G. Pullaiah College of Engineering and Technology</strong> — B.Tech Mechanical Engineering
+              <span class="muted"> (Jun 2019 – May 2023)</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card reveal">
+          <h3>Core Skills</h3>
+          <ul class="list">
+            <li><strong>Data & Analytics:</strong> KPI development, reporting, business analysis, data modeling</li>
+            <li><strong>SQL:</strong> joins, subqueries, CTEs, aggregations</li>
+            <li><strong>Python:</strong> pandas, NumPy</li>
+            <li><strong>Excel:</strong> pivot tables, power query, advanced formulas</li>
+            <li><strong>Emerging Tech:</strong> GenAI use cases for analytics & automation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section section--alt">
+    <div class="container">
+      <div class="section__head reveal">
+        <h2 class="section__title">Experience</h2>
+        <p class="section__subtitle">Real work, real impact.</p>
+      </div>
+
+      <div class="timeline reveal">
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__content card">
+            <div class="timeline__top">
+              <h3>Data Analytics Intern</h3>
+              <span class="muted">Phoenix Global • Hyderabad, India • Jun 2023 – Dec 2023</span>
+            </div>
+            <ul class="list">
+              <li>Translated business requirements into analytical reporting solutions across operational use cases.</li>
+              <li>Extracted, cleaned, and validated datasets from Excel and multiple sources to improve reporting accuracy.</li>
+              <li>Built interactive dashboards in Power BI and Tableau for performance monitoring and executive reporting.</li>
+              <li>Developed KPIs and calculated metrics for financial/operational analysis to highlight performance trends.</li>
+              <li>Identified process improvement opportunities reducing manual data preparation effort.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section__head reveal">
+        <h2 class="section__title">Projects</h2>
+        <p class="section__subtitle">A few things I’ve built. Add more cards anytime.</p>
+      </div>
+
+      <div class="grid projects-grid">
+        <!-- Project 1 -->
+        <article class="project card reveal">
+          <div class="project__media">
+            <img src="assets/project1.jpg" alt="U.S. Housing Dashboard preview" onerror="this.style.display='none'">
+            <div class="project__mediaFallback">Tableau • SQL • Python</div>
+          </div>
+          <div class="project__body">
+            <h3>U.S. Housing Market & Mortgage Trends Dashboard</h3>
+            <p>
+              Analyzed 10+ years of U.S. housing and mortgage data to identify affordability trends. Built an interactive Tableau dashboard
+              with filters and parameters for multi-dimensional analysis.
+            </p>
+            <div class="chips">
+              <span class="chip">Tableau</span><span class="chip">SQL</span><span class="chip">Python</span>
+            </div>
+            <div class="project__links">
+              <a class="link" href="#" target="_blank" rel="noopener">Live / Tableau Public</a>
+              <a class="link" href="#" target="_blank" rel="noopener">Code / Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project card reveal">
+          <div class="project__media">
+            <img src="assets/project2.jpg" alt="Dataset validation preview" onerror="this.style.display='none'">
+            <div class="project__mediaFallback">SQL • Tableau</div>
+          </div>
+          <div class="project__body">
+            <h3>Housing Market Dataset Validation & Integration</h3>
+            <p>
+              Standardized multi-year housing datasets (state-level), aligned date formats and geographic hierarchies, and verified dataset
+              relationships to improve data integrity for reporting workflows.
+            </p>
+            <div class="chips">
+              <span class="chip">SQL</span><span class="chip">Tableau</span><span class="chip">Data Quality</span>
+            </div>
+            <div class="project__links">
+              <a class="link" href="#" target="_blank" rel="noopener">Case Study</a>
+              <a class="link" href="#" target="_blank" rel="noopener">Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project card reveal">
+          <div class="project__media">
+            <img src="assets/project3.jpg" alt="Climate policy analysis preview" onerror="this.style.display='none'">
+            <div class="project__mediaFallback">Excel • Regression</div>
+          </div>
+          <div class="project__body">
+            <h3>Optimizing Climate Policy for a 2°C Future</h3>
+            <p>
+              Built policy scenarios in EN-ROADS and applied regression/sensitivity analysis to assess emissions impacts. Recommended
+              high-impact strategies like carbon pricing and renewable incentives.
+            </p>
+            <div class="chips">
+              <span class="chip">Excel</span><span class="chip">Regression</span><span class="chip">Analysis</span>
+            </div>
+            <div class="project__links">
+              <a class="link" href="#" target="_blank" rel="noopener">Report</a>
+              <a class="link" href="#" target="_blank" rel="noopener">Workbook</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ADD MORE PROJECTS: copy one card and paste -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" class="section section--alt">
+    <div class="container">
+      <div class="section__head reveal">
+        <h2 class="section__title">Certifications</h2>
+        <p class="section__subtitle">Credentials & recognition.</p>
+      </div>
+
+      <div class="grid cert-grid">
+        <div class="card reveal"><h3>Lean Six Sigma Green Belt</h3><p class="muted">Certification</p></div>
+        <div class="card reveal"><h3>Rising Star – Business</h3><p class="muted">Celonis</p></div>
+        <div class="card reveal"><h3>Rising Star – Technical Graphic</h3><p class="muted">Celonis</p></div>
+        <div class="card reveal"><h3>Machine Learning & Data Science with Python</h3><p class="muted">PHN Technology</p></div>
+        <div class="card reveal"><h3>Python Certification (Grade A)</h3><p class="muted">Wave Infotech</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section__head reveal">
+        <h2 class="section__title">Contact</h2>
+        <p class="section__subtitle">Let’s talk about analytics, dashboards, and solving real business problems.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="card reveal">
+          <h3>Reach me</h3>
+          <p class="muted">Email is fastest.</p>
+          <div class="contact-links">
+            <a class="btn btn--primary" href="mailto:sumanthgandla@gmail.com">Email Me</a>
+            <a class="btn btn--ghost" href="tel:+19898548386">Call</a>
+          </div>
+          <div class="divider"></div>
+          <p class="muted small">
+            LinkedIn: <a class="link" href="https://www.linkedin.com/in/sumanth-gandla" target="_blank" rel="noopener">sumanth-gandla</a>
+          </p>
+        </div>
+
+        <form class="card reveal" action="https://formspree.io/f/xbdayogk" method="POST">
+          <h3>Send a message</h3>
+          <label class="field">
+            <span>Name</span>
+            <input required name="name" placeholder="Your name" />
+          </label>
+          <label class="field">
+            <span>Email</span>
+            <input required type="email" name="email" placeholder="you@example.com" />
+          </label>
+          <label class="field">
+            <span>Message</span>
+            <textarea required name="message" rows="5" placeholder="Tell me what you’re working on..."></textarea>
+          </label>
+          <button class="btn btn--primary" type="submit">Send</button>
+        </form>
+      </div>
+
+      <footer class="footer">
+        <p class="muted small">© <span id="year"></span> Sumanth Gandla • Built with HTML/CSS/JS</p>
+      </footer>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
