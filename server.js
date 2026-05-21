@@ -40,6 +40,16 @@ function readRequestBody(request) {
 }
 
 async function handleChat(request, response) {
+  if (request.method === "GET") {
+    sendJson(response, 200, {
+      ok: true,
+      route: "/api/chat",
+      hasOpenAiKey: Boolean(process.env.OPENAI_API_KEY),
+      model: process.env.OPENAI_MODEL || "gpt-5-mini"
+    });
+    return;
+  }
+
   if (request.method !== "POST") {
     response.writeHead(405, { Allow: "POST" });
     response.end("Method not allowed");
@@ -94,7 +104,10 @@ async function handleChat(request, response) {
 
     sendJson(response, 200, { answer });
   } catch (error) {
-    sendJson(response, 500, { error: "Unable to generate chat response" });
+    sendJson(response, 500, {
+      error: "Unable to generate chat response",
+      detail: error.message
+    });
   }
 }
 

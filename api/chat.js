@@ -1,6 +1,15 @@
 const OPENAI_API_URL = "https://api.openai.com/v1/responses";
 
 export default async function handler(request, response) {
+  if (request.method === "GET") {
+    return response.status(200).json({
+      ok: true,
+      route: "/api/chat",
+      hasOpenAiKey: Boolean(process.env.OPENAI_API_KEY),
+      model: process.env.OPENAI_MODEL || "gpt-5-mini"
+    });
+  }
+
   if (request.method !== "POST") {
     response.setHeader("Allow", "POST");
     return response.status(405).json({ error: "Method not allowed" });
@@ -50,6 +59,9 @@ export default async function handler(request, response) {
 
     return response.status(200).json({ answer });
   } catch (error) {
-    return response.status(500).json({ error: "Unable to generate chat response" });
+    return response.status(500).json({
+      error: "Unable to generate chat response",
+      detail: error.message
+    });
   }
 }

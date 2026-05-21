@@ -113,12 +113,13 @@ async function askPortfolioAssistant(question) {
     })
   });
 
+  const responseText = await response.text();
+
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Chat endpoint failed (${response.status}): ${errorText}`);
+    throw new Error(`Chat endpoint failed (${response.status}): ${responseText.slice(0, 500)}`);
   }
 
-  const data = await response.json();
+  const data = JSON.parse(responseText);
   return data.answer;
 }
 
@@ -138,7 +139,7 @@ async function handleChatSubmit(question) {
     chatHistory.push({ role: "user", content: cleanQuestion }, { role: "assistant", content: typing.textContent });
   } catch (error) {
     console.warn(error.message);
-    typing.textContent = "I could not reach the OpenAI API. Check the browser console and server logs for the exact error.";
+    typing.textContent = `I could not reach the OpenAI API.\n\n${error.message}`;
     chatbotNote.textContent = error.message;
   } finally {
     chatbotInput.disabled = false;
