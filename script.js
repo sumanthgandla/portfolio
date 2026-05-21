@@ -143,7 +143,11 @@ async function askPortfolioAssistant(question) {
     })
   });
 
-  if (!response.ok) throw new Error("Chat endpoint unavailable");
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Chat endpoint failed (${response.status}): ${errorText}`);
+  }
+
   const data = await response.json();
   return data.answer;
 }
@@ -163,6 +167,7 @@ async function handleChatSubmit(question) {
     chatbotNote.textContent = "Live AI answer generated from Sumanth's portfolio context.";
     chatHistory.push({ role: "user", content: cleanQuestion }, { role: "assistant", content: typing.textContent });
   } catch (error) {
+    console.warn(error.message);
     typing.textContent = getLocalPortfolioAnswer(cleanQuestion);
     chatbotNote.textContent = "Using built-in portfolio knowledge until the OpenAI API proxy is configured.";
   } finally {
