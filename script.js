@@ -103,36 +103,6 @@ function appendChatMessage(text, sender, extraClass = "") {
   return message;
 }
 
-function getLocalPortfolioAnswer(question) {
-  const q = question.toLowerCase();
-
-  if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("linkedin")) {
-    return "You can reach Sumanth at sumanthgandla@gmail.com, call +1 989-854-8386, or connect on LinkedIn at linkedin.com/in/sumanth-gandla.";
-  }
-
-  if (q.includes("project") || q.includes("dashboard") || q.includes("tableau") || q.includes("housing")) {
-    return "Sumanth's strongest projects include a U.S. Housing Market & Mortgage Trends Tableau dashboard using 10+ years of data, a Housing Market Dataset Validation & Integration project focused on data quality, and a climate policy analysis project using EN-ROADS, Excel, regression, and sensitivity analysis.";
-  }
-
-  if (q.includes("role") || q.includes("fit") || q.includes("job") || q.includes("intern")) {
-    return "Sumanth is a strong fit for data analyst, BI analyst, reporting analyst, business analyst, analytics intern, and dashboard/reporting roles, especially where SQL, Tableau, Power BI, Excel, Python, KPI development, and stakeholder communication matter.";
-  }
-
-  if (q.includes("skill") || q.includes("tools") || q.includes("sql") || q.includes("python") || q.includes("power bi") || q.includes("excel")) {
-    return "Sumanth works with Power BI, Tableau, SQL, Python, and Excel. His analytics skills include KPI development, reporting, business analysis, data modeling, SQL joins/CTEs/aggregations, pandas, NumPy, pivot tables, Power Query, and advanced formulas.";
-  }
-
-  if (q.includes("education") || q.includes("degree") || q.includes("university") || q.includes("college")) {
-    return "Sumanth is pursuing an MS in Information Systems at Central Michigan University from Aug 2024 to May 2026. He also earned a B.Tech in Mechanical Engineering from G. Pullaiah College of Engineering and Technology.";
-  }
-
-  if (q.includes("experience") || q.includes("intern") || q.includes("phoenix")) {
-    return "Sumanth was a Data Analytics Intern at Phoenix Global in Hyderabad from Jun 2023 to Dec 2023. He translated business requirements into reports, cleaned and validated datasets, built Power BI/Tableau dashboards, developed KPIs, and reduced manual data preparation effort.";
-  }
-
-  return "I can help with Sumanth's skills, projects, internship experience, education, certifications, role fit, or contact details. Try asking about his Tableau projects or best-fit analyst roles.";
-}
-
 async function askPortfolioAssistant(question) {
   const response = await fetch(CHATBOT_API_ENDPOINT, {
     method: "POST",
@@ -163,13 +133,13 @@ async function handleChatSubmit(question) {
 
   try {
     const answer = await askPortfolioAssistant(cleanQuestion);
-    typing.textContent = answer || getLocalPortfolioAnswer(cleanQuestion);
+    typing.textContent = answer || "The API returned an empty answer. Please try again.";
     chatbotNote.textContent = "Live AI answer generated from Sumanth's portfolio context.";
     chatHistory.push({ role: "user", content: cleanQuestion }, { role: "assistant", content: typing.textContent });
   } catch (error) {
     console.warn(error.message);
-    typing.textContent = getLocalPortfolioAnswer(cleanQuestion);
-    chatbotNote.textContent = "Using built-in portfolio knowledge until the OpenAI API proxy is configured.";
+    typing.textContent = "I could not reach the OpenAI API. Check the browser console and server logs for the exact error.";
+    chatbotNote.textContent = error.message;
   } finally {
     chatbotInput.disabled = false;
     chatbotInput.focus();
