@@ -51,6 +51,140 @@ window.addEventListener("scroll", () => {
   progress.style.width = `${pct}%`;
 });
 
+// ===== Portfolio Chatbot =====
+const CHATBOT_API_ENDPOINT = "/api/chat";
+
+const PORTFOLIO_CONTEXT = `
+You are Sumanth AI, a concise, friendly chatbot embedded in Sumanth Gandla's portfolio.
+Answer only from the portfolio details below. If a visitor asks for something unknown, say you do not have that detail and invite them to contact Sumanth.
+Keep answers helpful, specific, and conversational. For recruiters, highlight role fit, project impact, and contact paths.
+
+Portfolio details:
+- Name: Sumanth Gandla.
+- Location: Mount Pleasant, Michigan.
+- Focus: Data analytics, business intelligence, reporting automation, consulting, and process transformation.
+- Education: MS in Information Systems at Central Michigan University, Aug 2024 to May 2026.
+- Education: B.Tech in Mechanical Engineering from G. Pullaiah College of Engineering and Technology, Jun 2019 to May 2023.
+- Summary: Early-career Information Systems graduate student experienced in stakeholder collaboration, extracting, cleaning, validating datasets, and delivering interactive dashboards for performance monitoring and executive reporting.
+- Core tools: Power BI, Tableau, SQL, Python, Excel.
+- Data skills: KPI development, reporting, business analysis, data modeling, SQL joins, subqueries, CTEs, aggregations, pandas, NumPy, pivot tables, Power Query, advanced Excel formulas.
+- Emerging technology interest: Generative AI use cases for analytics and automation.
+- Experience: Data Analytics Intern at Phoenix Global in Hyderabad, India from Jun 2023 to Dec 2023.
+- Internship work: translated business requirements into reporting solutions, extracted/cleaned/validated Excel and multi-source datasets, built Power BI and Tableau dashboards, developed KPIs and calculated metrics for financial and operational analysis, and found process improvements that reduced manual data preparation effort.
+- Project 1: U.S. Housing Market & Mortgage Trends Dashboard. Analyzed 10+ years of U.S. housing and mortgage data to identify affordability trends. Built an interactive Tableau dashboard with filters and parameters for multi-dimensional analysis. Tools: Tableau, SQL, Python.
+- Project 2: Housing Market Dataset Validation & Integration. Standardized multi-year state-level housing datasets, aligned date formats and geographic hierarchies, and verified dataset relationships to improve reporting workflows. Tools: SQL, Tableau, data quality.
+- Project 3: Optimizing Climate Policy for a 2 degrees C Future. Built policy scenarios in EN-ROADS and used regression/sensitivity analysis to assess emissions impacts. Recommended high-impact strategies including carbon pricing and renewable incentives. Tools: Excel, regression, analysis.
+- Certifications: Lean Six Sigma Green Belt, Celonis Rising Star Business, Celonis Rising Star Technical Graphic, Machine Learning & Data Science with Python from PHN Technology, Python Certification Grade A from Wave Infotech.
+- Contact: email sumanthgandla@gmail.com, phone +1 989-854-8386, LinkedIn https://www.linkedin.com/in/sumanth-gandla.
+`;
+
+const chatbotRoot = document.querySelector(".chatbot");
+const chatbotLauncher = document.getElementById("chatbotLauncher");
+const openChatNav = document.getElementById("openChatNav");
+const chatbotClose = document.getElementById("chatbotClose");
+const chatbotForm = document.getElementById("chatbotForm");
+const chatbotInput = document.getElementById("chatbotInput");
+const chatbotMessages = document.getElementById("chatbotMessages");
+const chatbotNote = document.getElementById("chatbotNote");
+const chatHistory = [];
+
+function setChatOpen(isOpen) {
+  chatbotRoot.classList.toggle("is-open", isOpen);
+  chatbotLauncher.setAttribute("aria-expanded", String(isOpen));
+  if (isOpen) chatbotInput.focus();
+}
+
+function appendChatMessage(text, sender, extraClass = "") {
+  const message = document.createElement("div");
+  message.className = `chatbot__message chatbot__message--${sender} ${extraClass}`.trim();
+  message.textContent = text;
+  chatbotMessages.appendChild(message);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  return message;
+}
+
+function getLocalPortfolioAnswer(question) {
+  const q = question.toLowerCase();
+
+  if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("linkedin")) {
+    return "You can reach Sumanth at sumanthgandla@gmail.com, call +1 989-854-8386, or connect on LinkedIn at linkedin.com/in/sumanth-gandla.";
+  }
+
+  if (q.includes("project") || q.includes("dashboard") || q.includes("tableau") || q.includes("housing")) {
+    return "Sumanth's strongest projects include a U.S. Housing Market & Mortgage Trends Tableau dashboard using 10+ years of data, a Housing Market Dataset Validation & Integration project focused on data quality, and a climate policy analysis project using EN-ROADS, Excel, regression, and sensitivity analysis.";
+  }
+
+  if (q.includes("role") || q.includes("fit") || q.includes("job") || q.includes("intern")) {
+    return "Sumanth is a strong fit for data analyst, BI analyst, reporting analyst, business analyst, analytics intern, and dashboard/reporting roles, especially where SQL, Tableau, Power BI, Excel, Python, KPI development, and stakeholder communication matter.";
+  }
+
+  if (q.includes("skill") || q.includes("tools") || q.includes("sql") || q.includes("python") || q.includes("power bi") || q.includes("excel")) {
+    return "Sumanth works with Power BI, Tableau, SQL, Python, and Excel. His analytics skills include KPI development, reporting, business analysis, data modeling, SQL joins/CTEs/aggregations, pandas, NumPy, pivot tables, Power Query, and advanced formulas.";
+  }
+
+  if (q.includes("education") || q.includes("degree") || q.includes("university") || q.includes("college")) {
+    return "Sumanth is pursuing an MS in Information Systems at Central Michigan University from Aug 2024 to May 2026. He also earned a B.Tech in Mechanical Engineering from G. Pullaiah College of Engineering and Technology.";
+  }
+
+  if (q.includes("experience") || q.includes("intern") || q.includes("phoenix")) {
+    return "Sumanth was a Data Analytics Intern at Phoenix Global in Hyderabad from Jun 2023 to Dec 2023. He translated business requirements into reports, cleaned and validated datasets, built Power BI/Tableau dashboards, developed KPIs, and reduced manual data preparation effort.";
+  }
+
+  return "I can help with Sumanth's skills, projects, internship experience, education, certifications, role fit, or contact details. Try asking about his Tableau projects or best-fit analyst roles.";
+}
+
+async function askPortfolioAssistant(question) {
+  const response = await fetch(CHATBOT_API_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      systemPrompt: PORTFOLIO_CONTEXT,
+      messages: [...chatHistory, { role: "user", content: question }]
+    })
+  });
+
+  if (!response.ok) throw new Error("Chat endpoint unavailable");
+  const data = await response.json();
+  return data.answer;
+}
+
+async function handleChatSubmit(question) {
+  const cleanQuestion = question.trim();
+  if (!cleanQuestion) return;
+
+  appendChatMessage(cleanQuestion, "user");
+  chatbotInput.value = "";
+  chatbotInput.disabled = true;
+  const typing = appendChatMessage("Thinking through the portfolio...", "bot", "chatbot__message--typing");
+
+  try {
+    const answer = await askPortfolioAssistant(cleanQuestion);
+    typing.textContent = answer || getLocalPortfolioAnswer(cleanQuestion);
+    chatbotNote.textContent = "Live AI answer generated from Sumanth's portfolio context.";
+    chatHistory.push({ role: "user", content: cleanQuestion }, { role: "assistant", content: typing.textContent });
+  } catch (error) {
+    typing.textContent = getLocalPortfolioAnswer(cleanQuestion);
+    chatbotNote.textContent = "Using built-in portfolio knowledge until the OpenAI API proxy is configured.";
+  } finally {
+    chatbotInput.disabled = false;
+    chatbotInput.focus();
+  }
+}
+
+chatbotLauncher.addEventListener("click", () => setChatOpen(!chatbotRoot.classList.contains("is-open")));
+chatbotClose.addEventListener("click", () => setChatOpen(false));
+openChatNav.addEventListener("click", () => {
+  nav.classList.remove("is-open");
+  setChatOpen(true);
+});
+chatbotForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  handleChatSubmit(chatbotInput.value);
+});
+document.querySelectorAll("[data-chat-prompt]").forEach((button) => {
+  button.addEventListener("click", () => handleChatSubmit(button.dataset.chatPrompt));
+});
+
 // ===== Contact Form (simple demo) =====
 function handleContact(event) {
   event.preventDefault();

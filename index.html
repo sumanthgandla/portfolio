@@ -26,6 +26,7 @@
         <a href="#experience" class="nav__link">Experience</a>
         <a href="#projects" class="nav__link">Projects</a>
         <a href="#certifications" class="nav__link">Certifications</a>
+        <button class="nav__link nav__chat" id="openChatNav" type="button">Ask AI</button>
         <a href="#contact" class="nav__link nav__link--cta">Contact</a>
       </nav>
 
@@ -305,6 +306,42 @@
       <footer class="footer">
         <p class="muted small">© <span id="year"></span> Sumanth Gandla • Built with HTML/CSS/JS</p>
       </footer>
+    </div>
+  </section>
+
+  <!-- AI CHATBOT -->
+  <section class="chatbot" aria-label="Portfolio chatbot">
+    <button class="chatbot__launcher" id="chatbotLauncher" type="button" aria-label="Open portfolio assistant" aria-expanded="false">
+      <span class="chatbot__launcherIcon">AI</span>
+      <span class="chatbot__launcherText">Ask Sumanth AI</span>
+    </button>
+
+    <div class="chatbot__panel" id="chatbotPanel" aria-live="polite">
+      <div class="chatbot__header">
+        <div>
+          <p class="chatbot__eyebrow">Portfolio assistant</p>
+          <h2>Sumanth AI</h2>
+        </div>
+        <button class="chatbot__close" id="chatbotClose" type="button" aria-label="Close portfolio assistant">&times;</button>
+      </div>
+
+      <div class="chatbot__quick">
+        <button type="button" data-chat-prompt="What roles is Sumanth a strong fit for?">Best-fit roles</button>
+        <button type="button" data-chat-prompt="Summarize Sumanth's strongest projects.">Projects</button>
+        <button type="button" data-chat-prompt="How can I contact Sumanth?">Contact</button>
+      </div>
+
+      <div class="chatbot__messages" id="chatbotMessages">
+        <div class="chatbot__message chatbot__message--bot">
+          Hi, I can answer questions about Sumanth's analytics skills, projects, experience, education, and contact details.
+        </div>
+      </div>
+
+      <form class="chatbot__form" id="chatbotForm">
+        <input id="chatbotInput" type="text" autocomplete="off" placeholder="Ask about skills, projects, roles..." aria-label="Ask the portfolio assistant" />
+        <button type="submit">Send</button>
+      </form>
+      <p class="chatbot__note" id="chatbotNote">Connect your OpenAI API proxy in script.js to enable live AI answers.</p>
     </div>
   </section>
 
