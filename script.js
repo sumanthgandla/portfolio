@@ -52,7 +52,19 @@ window.addEventListener("scroll", () => {
 });
 
 // ===== Portfolio Chatbot =====
-const CHATBOT_API_ENDPOINT = "/api/chat";
+function getChatbotApiEndpoint() {
+  if (window.CHATBOT_API_ENDPOINT) return window.CHATBOT_API_ENDPOINT;
+
+  const codespacesPortMatch = window.location.hostname.match(/-(\d+)\.app\.github\.dev$/);
+  if (codespacesPortMatch && codespacesPortMatch[1] !== "3000") {
+    const apiHost = window.location.hostname.replace(/-\d+\.app\.github\.dev$/, "-3000.app.github.dev");
+    return `${window.location.protocol}//${apiHost}/api/chat`;
+  }
+
+  return "/api/chat";
+}
+
+const CHATBOT_API_ENDPOINT = getChatbotApiEndpoint();
 
 const PORTFOLIO_CONTEXT = `
 You are Sumanth AI, a concise, friendly chatbot embedded in Sumanth Gandla's portfolio.
