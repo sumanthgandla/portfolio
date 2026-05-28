@@ -51,20 +51,17 @@ window.addEventListener("scroll", () => {
   progress.style.width = `${pct}%`;
 });
 
-// ===== Portfolio Chatbot =====
-function getChatbotApiEndpoint() {
-  if (window.CHATBOT_API_ENDPOINT) return window.CHATBOT_API_ENDPOINT;
-
-  const codespacesPortMatch = window.location.hostname.match(/-(\d+)\.app\.github\.dev$/);
-  if (codespacesPortMatch && codespacesPortMatch[1] !== "3000") {
-    const apiHost = window.location.hostname.replace(/-\d+\.app\.github\.dev$/, "-3000.app.github.dev");
-    return `${window.location.protocol}//${apiHost}/api/chat`;
-  }
-
-  return "/api/chat";
+// ===== Cert Lightbox =====
+function openCertImg(src) {
+  document.getElementById("certLightboxImg").src = src;
+  document.getElementById("certLightbox").classList.add("is-open");
 }
+function closeCertImg() {
+  document.getElementById("certLightbox").classList.remove("is-open");
+}
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeCertImg(); });
 
-const CHATBOT_API_ENDPOINT = getChatbotApiEndpoint();
+// ===== Portfolio Chatbot =====
 
 const PORTFOLIO_CONTEXT = `
 You are Sumanth AI, a concise, friendly chatbot embedded in Sumanth Gandla's portfolio.
@@ -116,23 +113,33 @@ function appendChatMessage(text, sender, extraClass = "") {
 }
 
 async function askPortfolioAssistant(question) {
-  const response = await fetch(CHATBOT_API_ENDPOINT, {
+  const apiKey = window.OPENAI_API_KEY;
+  if (!apiKey) throw new Error("OPENAI_API_KEY not set. Add it to index.html.");
+
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`
+    },
     body: JSON.stringify({
-      systemPrompt: PORTFOLIO_CONTEXT,
-      messages: [...chatHistory, { role: "user", content: question }]
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: PORTFOLIO_CONTEXT },
+        ...chatHistory,
+        { role: "user", content: question }
+      ],
+      max_tokens: 350
     })
   });
 
-  const responseText = await response.text();
+  const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(`Chat endpoint failed (${response.status}): ${responseText.slice(0, 500)}`);
+    throw new Error(data.error?.message || `OpenAI request failed (${response.status})`);
   }
 
-  const data = JSON.parse(responseText);
-  return data.answer;
+  return data.choices[0]?.message?.content || "";
 }
 
 async function handleChatSubmit(question) {
@@ -151,7 +158,7 @@ async function handleChatSubmit(question) {
     chatHistory.push({ role: "user", content: cleanQuestion }, { role: "assistant", content: typing.textContent });
   } catch (error) {
     console.warn(error.message);
-    typing.textContent = `I could not reach the OpenAI API.\n\n${error.message}`;
+    typing.textContent = `Sorry, I couldn't get a response. Please try again or contact Sumanth directly at sumanthgandla@gmail.com.`;
     chatbotNote.textContent = error.message;
   } finally {
     chatbotInput.disabled = false;

@@ -255,19 +255,31 @@
 
       <div class="grid cert-grid">
         <div class="card reveal">
-          <img src="assests/Lean Six segma certification.png" alt="Lean Six Sigma Green Belt Certificate" class="cert-img">
+          <div class="cert-img-wrap" onclick="openCertImg(this.querySelector('img').src)">
+            <img src="assests/Lean Six segma certification.png" alt="Lean Six Sigma Green Belt Certificate" class="cert-img">
+          </div>
           <h3>Lean Six Sigma Green Belt</h3><p class="muted">Certification</p>
         </div>
         <div class="card reveal">
-          <img src="assests/Process Mining Raising Star - Business.png" alt="Celonis Rising Star Business" class="cert-img">
+          <div class="cert-img-wrap" onclick="openCertImg(this.querySelector('img').src)">
+            <img src="assests/Process Mining Raising Star - Business.png" alt="Celonis Rising Star Business" class="cert-img">
+          </div>
           <h3>Rising Star – Business</h3><p class="muted">Celonis</p>
         </div>
         <div class="card reveal">
-          <img src="assests/Process mining Raising star - Technical.png" alt="Celonis Rising Star Technical Graphic" class="cert-img">
+          <div class="cert-img-wrap" onclick="openCertImg(this.querySelector('img').src)">
+            <img src="assests/Process mining Raising star - Technical.png" alt="Celonis Rising Star Technical Graphic" class="cert-img">
+          </div>
           <h3>Rising Star – Technical Graphic</h3><p class="muted">Celonis</p>
         </div>
         <div class="card reveal"><h3>Machine Learning & Data Science with Python</h3><p class="muted">PHN Technology</p></div>
         <div class="card reveal"><h3>Python Certification (Grade A)</h3><p class="muted">Wave Infotech</p></div>
+      </div>
+
+      <!-- Lightbox -->
+      <div class="cert-lightbox" id="certLightbox" onclick="closeCertImg()">
+        <button class="cert-lightbox__close" aria-label="Close">&times;</button>
+        <img id="certLightboxImg" src="" alt="Certificate full view">
       </div>
     </div>
   </section>
@@ -350,10 +362,14 @@
         <input id="chatbotInput" type="text" autocomplete="off" placeholder="Ask about skills, projects, roles..." aria-label="Ask the portfolio assistant" />
         <button type="submit">Send</button>
       </form>
-      <p class="chatbot__note" id="chatbotNote">Connect your OpenAI API proxy in script.js to enable live AI answers.</p>
+      <p class="chatbot__note" id="chatbotNote">Powered by OpenAI · answers based on Sumanth's portfolio.</p>
     </div>
   </section>
 
+  <script>
+    // Paste your OpenAI API key below. Set a spending limit at platform.openai.com/settings/limits
+    window.OPENAI_API_KEY = "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";
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
