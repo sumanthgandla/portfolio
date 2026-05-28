@@ -330,6 +330,15 @@ a{ color:inherit; text-decoration:none; }
 .timeline__top{ display:flex; flex-direction:column; gap:4px; }
 
 .cert-grid{ grid-template-columns: repeat(3, 1fr); }
+.cert-img{
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background: rgba(255,255,255,.06);
+}
+[data-theme="light"] .cert-img{ background: rgba(0,0,0,.04); }
 
 .contact-grid{
   display:grid;

@@ -60,7 +60,7 @@ async function handleChat(request, response) {
       ok: true,
       route: "/api/chat",
       hasOpenAiKey: Boolean(process.env.OPENAI_API_KEY),
-      model: process.env.OPENAI_MODEL || "gpt-5-mini"
+      model: process.env.OPENAI_MODEL || "gpt-4o-mini"
     });
     return;
   }
@@ -92,7 +92,7 @@ async function handleChat(request, response) {
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || "gpt-5-mini",
+        model: process.env.OPENAI_MODEL || "gpt-4o-mini",
         instructions: systemPrompt,
         input: messages.map((message) => ({
           role: message.role === "assistant" ? "assistant" : "user",
